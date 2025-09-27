@@ -1,6 +1,6 @@
+# Python cache
 __pycache__/
 *.pyc
-*.pyo
-.venv
-.log
-db/dump
+
+# Virtual environment
+venv/

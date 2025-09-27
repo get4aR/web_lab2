@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Students Pagination{% endblock %}</title>
+    <meta name="description" content="A web application for displaying students data with pagination.">
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+  </head>
+  <body>
+    <nav>
+      <div>
+        <a href="#">Students Admin's Panel</a>
+      </div>
+    </nav>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+      const flashes = document.querySelectorAll(".flash");
+      flashes.forEach(flash => {
+        // Авто-удаление через 5 секунд
+        setTimeout(() => {
+          flash.style.animation = "identifier 0.4s forwards";
+          setTimeout(() => flash.remove(), 400);
+        }, 6000);
+
+        // Клик по крестику
+        flash.addEventListener("click", () => {
+          flash.style.animation = "identifier 2s forwards";
+          setTimeout(() => flash.remove(), 400);
+        });
+      });
+    });
+    </script>
+
+    <main>
+      <div id="flash-container">
+        {% if request.query_params.created %}
+          <div class="flash success">✅ Студент успешно добавлен</div>
+        {% endif %}
+        {% if request.query_params.deleted %}
+          <div class="flash success">🗑️ Студент успешно удален</div>
+        {% endif %}
+        {% if request.query_params.error == 'exists' %}
+          <div class="flash error">⚠️ Студент уже существует</div>
+        {% elif request.query_params.error == 'notfound' %}
+          <div class="flash warning">🔍 Студент не найден</div>
+        {% elif request.query_params.error == 'need_fio' %}
+          <div class="flash error">❌ Необходимо ФИО студента для удаления</div>
+        {% elif request.query_params.error == 'missing_fields' %}
+          <div class="flash error">❌ Необъодимы все параментры для добавления</div>
+        {% elif request.query_params.error == 'bad_study_year' %}
+          <div class="flash error">❌ Некорректный год обучения студента</div>
+        {% endif %}
+      </div>
+
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
