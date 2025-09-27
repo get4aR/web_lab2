@@ -15,3 +15,7 @@ class StudentOut(BaseModel):
     class Config:
         from_attributes=True
         # orm_mode = True
+
+class PaginatedResponse(BaseModel):
+    students: List[StudentOut]
+    totalPages: int

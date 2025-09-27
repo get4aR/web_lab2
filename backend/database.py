@@ -4,8 +4,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String
 from sqlalchemy import PrimaryKeyConstraint
 
-# Настройки подключения к базе данных
-DATABASE_URL = "postgresql://get4ar:1532@localhost:5432/postgres"
+# Настройки подключения к базе данных (используем асинхронное подключение)
+DATABASE_URL = "postgresql://postgres:1532@db:5432/weblab2"
 
 # Create SQLAlchemy engine
 engine = create_engine(DATABASE_URL)
